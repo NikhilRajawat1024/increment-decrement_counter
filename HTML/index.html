@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Basic styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+        .counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background: #fff;
+            padding: 30px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2); 
+            border-radius: 5px;
+        }
+        .btn {
+            cursor: pointer;
+            padding: 20px 40px; 
+            margin: 0 15px; 
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 18px; 
+        }
+        .btn-increment {
+            background-color: #28a745;
+        }
+        .btn-decrement {
+            background-color: #dc3545;
+        }
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05); 
+        }
+    </style>
+</head>
+<body>
+    <div class="counter">
+        <button class="btn btn-decrement" onclick="changeCount(-1)">-</button>
+        <span id="count">0</span>
+        <button class="btn btn-increment" onclick="changeCount(1)">+</button>
+    </div>
+
+    <script>
+        let count = 0;
+
+        function changeCount(value) {
+            count += value;
+            updateCounter();
+            animateButton(value);
+        }
+
+        function updateCounter() {
+            document.getElementById("count").textContent = count;
+        }
+
+        function animateButton(value) {
+            const btnClass = value > 0 ? 'btn-increment' : 'btn-decrement';
+            const buttons = document.getElementsByClassName(btnClass);
+            for (let btn of buttons) {
+                btn.classList.add('active');
+                setTimeout(() => {
+                    btn.classList.remove('active');
+                }, 200);
+            }
+        }
+
+        
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .btn.active {
+                transform: scale(0.95);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
